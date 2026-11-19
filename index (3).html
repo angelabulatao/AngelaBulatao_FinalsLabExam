@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wanderlist – Travel Bucket List</title>
+<meta name="description" content="Discover Philippine and international destinations, save your dream places, plan trips and stamp the ones you've visited.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="navbar navbar-expand-md wl-nav sticky-top" aria-label="Main">
+  <div class="container">
+    <a class="navbar-brand" href="#home" data-route="home">Wander<em>list</em></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto gap-md-2">
+        <li class="nav-item"><a class="nav-link" href="#home" data-route="home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#discover" data-route="discover">Discover</a></li>
+        <li class="nav-item"><a class="nav-link" href="#bucket" data-route="bucket">My Bucket List <span class="badge rounded-pill" id="navCount">0</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="#planner" data-route="planner">Trip Planner</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<!-- HOME -->
+<section class="view" id="view-home" aria-labelledby="homeTitle">
+  <header class="hero">
+    <div class="container">
+      <div class="row align-items-end g-4">
+        <div class="col-lg-7">
+          <p class="kicker">A bucket list you can actually finish</p>
+          <h1 id="homeTitle">Keep the places you dream about. Stamp the ones you reach.</h1>
+          <p class="lead">Browse Philippine islands and far-off cities, save them to one list, plan the trip and mark each stop as visited.</p>
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a href="#discover" class="btn btn-wl btn-lg">Start exploring</a>
+            <a href="#planner" class="btn btn-outline-light btn-lg">Plan a trip</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <dl class="hero-stats">
+            <div><dt>saved</dt><dd id="statSaved">0</dd></div>
+            <div><dt>visited</dt><dd id="statVisited">0</dd></div>
+            <div><dt>trips planned</dt><dd id="statTrips">0</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container section">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <h2>Featured destinations</h2>
+      <a href="#discover" class="link-wl">See all destinations</a>
+    </div>
+    <div class="row g-4" id="featuredGrid"></div>
+  </div>
+
+  <div class="band">
+    <div class="container section">
+      <h2 class="mb-4">Where to next?</h2>
+      <div class="row g-4">
+        <div class="col-md-4"><a class="idea" href="#discover" data-filter-cat="Beach"><img data-src="photo-1507525428034-b723cf961d3e" alt="Turquoise shallow water over white sand"><span>Island-hop the Visayas, then fly somewhere with a longer coastline.</span></a></div>
+        <div class="col-md-4"><a class="idea" href="#discover" data-filter-cat="Mountain"><img data-src="photo-1506905925346-21bda4d32df4" alt="Mountain ridge above clouds at sunrise"><span>Sunrise hikes and cloud-sea ridgelines for early risers.</span></a></div>
+        <div class="col-md-4"><a class="idea" href="#discover" data-filter-cat="City"><img data-src="photo-1480714378408-67cf0d13bc1b" alt="City skyline at dusk"><span>Night markets, old quarters and skylines worth a long layover.</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVER -->
+<section class="view" id="view-discover" aria-labelledby="discTitle">
+  <div class="container section">
+    <h1 id="discTitle" class="page-title">Discover</h1>
+    <p class="text-muted">Search by name, country or mood, then narrow by category or region.</p>
+    <form class="row g-3 align-items-end mb-3" role="search" id="searchForm">
+      <div class="col-md-8">
+        <label for="q" class="form-label">Search destinations</label>
+        <input type="search" class="form-control" id="q" placeholder="Try “Palawan”, “temple” or “Japan”" autocomplete="off">
+      </div>
+      <div class="col-md-4">
+        <label for="region" class="form-label">Region</label>
+        <select class="form-select" id="region">
+          <option value="all">Philippines &amp; International</option>
+          <option value="ph">Philippines</option>
+          <option value="intl">International</option>
+        </select>
+      </div>
+    </form>
+    <div class="chips mb-4" id="chips" role="group" aria-label="Filter by category"></div>
+    <p class="small text-muted" id="resultCount" role="status" aria-live="polite"></p>
+    <div class="row g-4" id="discoverGrid"></div>
+    <div class="empty d-none" id="discoverEmpty">
+      <h2>No destinations match</h2>
+      <p>Clear the search or pick another category.</p>
+      <button class="btn btn-wl" id="resetFilters" type="button">Reset filters</button>
+    </div>
+  </div>
+</section>
+
+<!-- BUCKET -->
+<section class="view" id="view-bucket" aria-labelledby="bucketTitle">
+  <div class="container section">
+    <h1 id="bucketTitle" class="page-title">My Bucket List</h1>
+    <div class="progress-wrap">
+      <div class="d-flex justify-content-between small"><span id="progressText">0 of 0 visited</span><span id="progressPct">0%</span></div>
+      <div class="progress" role="progressbar" aria-label="Visited progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+    </div>
+    <div class="btn-group my-4" role="group" aria-label="Filter bucket list" id="bucketTabs">
+      <button type="button" class="btn btn-tab active" data-tab="all" aria-pressed="true">All</button>
+      <button type="button" class="btn btn-tab" data-tab="todo" aria-pressed="false">To visit</button>
+      <button type="button" class="btn btn-tab" data-tab="done" aria-pressed="false">Visited</button>
+    </div>
+    <div class="row g-4" id="bucketGrid"></div>
+    <div class="empty d-none" id="bucketEmpty">
+      <h2 id="bucketEmptyTitle">Your list is empty</h2>
+      <p id="bucketEmptyText">Save destinations from Discover and they'll show up here.</p>
+      <a href="#discover" class="btn btn-wl">Find destinations</a>
+    </div>
+  </div>
+</section>
+
+<!-- PLANNER -->
+<section class="view" id="view-planner" aria-labelledby="planTitle">
+  <div class="container section">
+    <h1 id="planTitle" class="page-title">Trip Planner</h1>
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <form id="tripForm" class="plan-form" novalidate>
+          <h2 id="formHeading" class="h4">New trip</h2>
+          <input type="hidden" id="tripId">
+          <div class="mb-3">
+            <label for="tTitle" class="form-label">Trip name</label>
+            <input type="text" class="form-control" id="tTitle" maxlength="60" required>
+            <div class="invalid-feedback">Give your trip a name.</div>
+          </div>
+          <div class="mb-3">
+            <label for="tDest" class="form-label">Destination</label>
+            <select class="form-select" id="tDest" required></select>
+            <div class="invalid-feedback">Choose a destination.</div>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-6"><label for="tStart" class="form-label">Departure</label><input type="date" class="form-control" id="tStart" required><div class="invalid-feedback">Pick a departure date.</div></div>
+            <div class="col-6"><label for="tEnd" class="form-label">Return</label><input type="date" class="form-control" id="tEnd" required><div class="invalid-feedback" id="endMsg">Pick a return date.</div></div>
+          </div>
+          <p class="duration" id="durationPreview" aria-live="polite">Choose dates to see trip length.</p>
+          <div class="mb-3">
+            <label for="tBudget" class="form-label">Budget (₱, optional)</label>
+            <input type="number" class="form-control" id="tBudget" min="0" step="100">
+            <div class="invalid-feedback">Budget can't be negative.</div>
+          </div>
+          <div class="mb-4">
+            <label for="tNotes" class="form-label">Notes (optional)</label>
+            <textarea class="form-control" id="tNotes" rows="3" maxlength="300"></textarea>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-wl" id="tripSubmit">Save trip</button>
+            <button type="button" class="btn btn-outline-secondary d-none" id="tripCancel">Cancel edit</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-7">
+        <h2 class="h4 mb-3">Your trips</h2>
+        <div id="tripList" class="d-grid gap-3"></div>
+        <div class="empty d-none" id="tripEmpty"><h2>No trips yet</h2><p>Fill in the form to plan your first one.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="wl-foot"><div class="container d-flex flex-wrap justify-content-between gap-2"><span>Wander<em>list</em> – your data stays in this browser.</span><span>Photos via Unsplash</span></div></footer>
+
+<!-- Details modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content">
+    <img id="infoImg" alt="" class="modal-img">
+    <div class="modal-body p-4">
+      <h2 class="h3" id="infoTitle"></h2>
+      <p class="text-muted" id="infoMeta"></p>
+      <p id="infoDesc"></p>
+      <p class="mb-0"><strong>Best time to go:</strong> <span id="infoSeason"></span></p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-wl" id="infoSave" type="button"></button><button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">Close</button></div>
+  </div></div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3"><div id="toast" class="toast wl-toast" role="status" aria-live="polite" aria-atomic="true"><div class="toast-body" id="toastMsg"></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
